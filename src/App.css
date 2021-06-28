@@ -7,46 +7,26 @@
   overflow: hidden;
 }
 
+.weather-app__content {
+  position: relative;
+  z-index: 1;
 
+  flex-shrink: 0;
+  width: 50%;
+  height: 100vh;
+  min-height: 880px;
+  overflow: hidden;
 
-
-.App {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: space-around;
+  background: var(--color-blue-lightest);
+  box-shadow: 0 0 40px rgba(11, 23, 78, 0.5);
 }
 
-.App .column {
-  width: 30%;
-
-}
-.container {
-  border: 1px solid black;
-  display: flex;
-  flex-direction: row;
+/* map */
+.weather-app__map {
+  flex-grow: 1;
+  width: auto;
+  height: 100%;
 }
 
+/*  */
 
-.dropable-col {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-
-  background-color: grey;
-  padding: 10px;
-  border-radius: 7px;
-}
-
-.item {
-  margin-bottom: 10px;
-  background-color: grey;
-  color: white;
-  border: 1px solid white;
-  padding: 5px;
-  border-radius: 7px;
-}
-
-.item.dragging {
-  background-color: red;
-}

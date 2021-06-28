@@ -1,8 +1,116 @@
-header{
-    display: flex;
+.sort-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 712px;
+  padding: 12px 20px;
 
+  background-color: var(--color-blue-main);
 }
 
-.btn{
-    background-color: rebeccapurple;
+.sort-form__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  flex-shrink: 0;
+  margin-right: 20px;
+  margin-bottom: -2px;
+}
+
+.sort-form__group:last-child {
+  margin-right: 0;
+}
+
+.sort-form__group > div {
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+
+.sort-form__group > div:last-child {
+  margin-right: 0;
+}
+
+.sort-form__group > div:last-child {
+  margin-right: 0;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+
+  background-color: var(--color-label-base);
+
+  border-radius: 2px;
+  cursor: pointer;
+
+  transition: background-color var(--transition-base),
+    box-shadow var(--transition-base);
+
+  user-select: none;
+}
+.button:hover {
+  background-color: var(--color-label-hover);
+  box-shadow: 0 4px 10px rgba(11, 23, 78, 0.5);
+}
+.button:active {
+  background-color: var(--color-label-active);
+}
+
+.icon {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-shrink: 0; */
+  width: 24px;
+  height: 24px;
+}
+
+/* input */
+
+.header__form {
+  display: flex;
+  border-radius: 2px;
+
+  width: 254px;
+  padding: 8px 20px;
+}
+
+.header__form input {
+  background-color: var(--color-input-base);
+  border: none;
+  outline: none;
+  transition: background-color var(--transition-base);
+
+  color: var(--color-text-input);
+  font-size: 15px;
+  padding-left: 5px;
+}
+.header__form button {
+  color: var(--color-input-base);
+  margin-left: 15px;
+  border: none;
+  outline: none;
+}
+
+.header__form input:hover {
+  background-color: var(--color-input-hover);
+}
+
+.header__form input:focus::placeholder {
+  opacity: 0;
+}
+
+.header__form input::placeholder {
+  color: var(--color-text-placeholder);
+
+  transition: opacity var(--transition-base);
+}
+
+.header__form input::-ms-input-placeholder {
+  color: var(--color-text-placeholder);
+
+  transition: opacity var(--transition-base);
 }

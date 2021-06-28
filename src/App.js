@@ -4,6 +4,7 @@ import { YMaps, Map, Placemark } from 'react-yandex-maps';
 
 import { Loader } from './components/Loader';
 import { Header } from './components/Header';
+import { WeatherContent } from './containers/weatherContent';
 import { useGlobalContext } from './context/context';
 
 import { v4 } from 'uuid';
@@ -25,147 +26,42 @@ function App() {
 
       citi.length == 0 ? alert('уточните место на карте') : fetchTours(citi[0]);
     });
-
   };
   // ....................
 
   // ......................
-  const handleDragEnd = ({ destination, source }) => {
-    if (!destination) {
-      return;
-    }
 
-    if (
-      destination.index === source.index &&
-      destination.droppableId === source.droppableId
-    ) {
-      return;
-    }
-    // littleCards to bigCards
-    const itemCopy = { ...weathers[source.droppableId].items[source.index] };
-    setWeathers((prev) => {
-      prev = { ...prev };
-      //remove from prev item
-      prev[source.droppableId].items.splice(source.index, 1);
-      //adding to new items
-      prev[destination.droppableId].items.splice(
-        destination.index,
-        0,
-        itemCopy
-      );
-
-      return prev;
-    });
-  };
   if (loading) {
     return <Loader />;
   }
   return (
-    
-    <YMaps
-      query={{
-        ns: 'use-load-option',
-        apikey: 'fbaa66ca-b14f-4867-9880-5cdaebab9bb5',
-        load: ['Placemark', 'geocode', 'geoObject.addon.balloon'],
-      }}
-    >
-      <div className="App">
-        {/*  */}
+    <section className="weather-app">
+      <div className="weather-app__content">
         <Header />
 
-        {/*  */}
-        <div className={'container'}>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            {_.map(weathers, (data, key) => {
-              return (
-                <div key={key} className={'column'}>
-                  <h4>{key}</h4>
-                  <Droppable droppableId={key}>
-                    {(provided) => {
-                      return (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.droppableProps}
-                          className={'dropable-col'}
-                        >
-                          {data.items.map((citi, index) => {
-                            return (
-                              <Draggable
-                                key={citi.id}
-                                index={index}
-                                draggableId={citi.id.toString()}
-                              >
-                                {(provided, snapshot) => {
-                                  if (key === 'littleCards') {
-                                    return (
-                                      <div
-                                        className={`item ${
-                                          snapshot.isDragging && 'dragging'
-                                        }`}
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                      >
-                                        {citi.name}
-                                      </div>
-                                    );
-                                  }
-                                  if (key === 'bigCards') {
-                                    return (
-                                      <div
-                                        className={`item ${
-                                          snapshot.isDragging && 'dragging'
-                                        }`}
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                      >
-                                        {citi.name}
-                                        {citi.main.temp}
-                                      </div>
-                                    );
-                                  }
-                                }}
-                              </Draggable>
-                            );
-                          })}
-
-                          {provided.placeholder}
-                        </div>
-                      );
-                    }}
-                  </Droppable>
-                </div>
-              );
-            })}
-          </DragDropContext>
-
-          <Map
-            style={{ width: '40%', height: '600px' }}
-            onLoad={(ympas) => (ymaps.current = ympas)}
-            defaultState={{
-              center: [55.75, 37.57],
-
-              zoom: 6,
-              searchControlProvider: 'yandex#search',
-            }}
-            onClick={getCoords}
-          >
-            {/*  */}
-            {weathers.bigCards.items.map((item, key) => {
-              return (
-                <Placemark
-                  key={key}
-                  defaultGeometry={[item.coord.lat, item.coord.lon]}
-                />
-              );
-            })}
-
-            {/*  */}
-          </Map>
-        </div>
+        <WeatherContent />
       </div>
-    </YMaps>
+      <Map
+        className="weather-app__map weather-map "
+        onLoad={(ympas) => (ymaps.current = ympas)}
+        defaultState={{
+          center: [55.75, 37.57],
+
+          zoom: 4,
+          searchControlProvider: 'yandex#search',
+        }}
+        onClick={getCoords}
+      >
+        {weathers.bigCards.items.map((item, key) => {
+          return (
+            <Placemark
+              key={key}
+              defaultGeometry={[item.coord.lat, item.coord.lon]}
+            />
+          );
+        })}
+      </Map>
+    </section>
   );
 }
 
