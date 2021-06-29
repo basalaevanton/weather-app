@@ -20,13 +20,3 @@
   background: var(--color-blue-lightest);
   box-shadow: 0 0 40px rgba(11, 23, 78, 0.5);
 }
-
-/* map */
-.weather-app__map {
-  flex-grow: 1;
-  width: auto;
-  height: 100%;
-}
-
-/*  */
-

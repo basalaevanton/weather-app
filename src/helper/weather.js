@@ -1,5 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import yandexData from '../data/data.json';
 const api = {
   key: '12ad92778c100cff3285c6e695c7a946',
   base: 'http://api.openweathermap.org/data/2.5/',
@@ -9,12 +7,12 @@ const cities = [
   'Вена',
   'Баку',
   'Ереван',
-  // 'Ватикан',
-  // 'Минск',
-  // 'Лондон',
-  // 'Берлин',
-  // 'Хельсинки',
-  // 'Москва',
+  'Ватикан',
+  'Минск',
+  'Лондон',
+  'Берлин',
+  'Хельсинки',
+  'Москва',
 ];
 
 const fetchTours = async (name) => {

@@ -1,7 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useCallback } from 'react';
-import { v4 } from 'uuid';
-
 import Weathers from '../helper/weather';
 
 const api = {
@@ -14,7 +11,6 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [sort, setSort] = useState(true);
-  // coords from click on map
 
   const [weathers, setWeathers] = useState({
     littleCards: {
@@ -26,7 +22,8 @@ const AppProvider = ({ children }) => {
       items: [],
     },
   });
-  // weather and citi  from input
+
+  // weather and citi  from input and card with geocode
   const fetchTours = async (name) => {
     setLoading(true);
     try {
@@ -57,8 +54,10 @@ const AppProvider = ({ children }) => {
       setLoading(false);
     }
   };
+ 
+
   // weather and citi from map to big cards
-  
+
   const fetchCoords = async (coords) => {
     setLoading(true);
     try {
@@ -108,6 +107,8 @@ const AppProvider = ({ children }) => {
         weathers,
         setSort,
         fetchTours,
+   
+
         setWeathers,
         fetchCoords,
       }}

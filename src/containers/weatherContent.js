@@ -5,11 +5,13 @@ import { useGlobalContext } from '../context/context';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import _ from 'lodash';
 
-import { bigCard } from '../components/bigCard';
-import { littleCard } from '../components/littleCard';
-
 export function WeatherContent() {
   const { loading, weathers, setWeathers, fetchTours } = useGlobalContext();
+
+  const tempCels = (t) => {
+    const temp = (t - 273.15).toFixed(1);
+    return temp > 0 ? '+' + temp + '°C' : '-' + temp + '°C';
+  };
 
   const handleDragEnd = ({ destination, source }) => {
     if (!destination) {
@@ -43,7 +45,7 @@ export function WeatherContent() {
       <DragDropContext onDragEnd={handleDragEnd}>
         {_.map(weathers, (data, key) => {
           return (
-            <div key={key} className={'card-list weather-content__small-cards'}>
+            <div key={key} className="card-list weather-content__small-cards">
               <h4>{key}</h4>
               <Droppable droppableId={key}>
                 {(provided) => {
@@ -51,7 +53,7 @@ export function WeatherContent() {
                     <div
                       ref={provided.innerRef}
                       {...provided.droppableProps}
-                      className={'dropable-col'}
+                      className="dropable-col"
                     >
                       {data.items.map((citi, index) => {
                         return (
@@ -71,17 +73,18 @@ export function WeatherContent() {
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                   >
-                                    <span class="small-card__city">
+                                    <span className="small-card__city">
                                       {citi.name}
                                     </span>
 
-                                    <span class="small-card__temperature">
-                                      {citi.main.temp}
+                                    <span className="small-card__temperature">
+                                      {tempCels(citi.main.temp)}
                                     </span>
                                   </div>
                                 );
                               }
                               if (key === 'bigCards') {
+                                
                                 return (
                                   <div
                                     className={`card big-card ${
@@ -91,26 +94,37 @@ export function WeatherContent() {
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                   >
-                                    <div class="big-card__header">
-                                      <span class="big-card__city">
-                                        {' '}
+                                    <div className="big-card__header">
+                                      <span className="big-card__city">
                                         {citi.name}
                                       </span>
                                     </div>
-                                    <div class="big-card__content">
-                                      <div class="big-card__content-wrapper">
-                                        <div class="big-card__weather-conditions">
-                                          {/* <span class="icon icon--rainy"></span> */}
+                                    <div className="big-card__content">
+                                      <div className="big-card__content-wrapper">
+                                        <div className="big-card__weather-conditions">
+                                          {citi.weather[0].description}
+                                          <span
+                                            className="icon1"
+                                            style={{
+                                              backgroundImage: `url('http://openweathermap.org/img/wn/${citi.weather[0].icon}@2x.png')`,
+                                            }}
+                                          ></span>
                                         </div>
-                                        <div class="big-card__wind">
-                                          {/* <span class="icon icon--wind"></span> */}
-                                          <span class="big-card__wind-info">
-                                            Ветер ЮЗ, 4-8 м/с
+                                        <div className="big-card__wind">
+                                          <span
+                                            className="icon"
+                                            style={{
+                                              backgroundImage:
+                                                'url(../../img/icon/icon-wind.svg)',
+                                            }}
+                                          ></span>
+                                          <span className="big-card__wind-info">
+                                            Ветер {(citi.wind.speed).toFixed(1)} м/с
                                           </span>
                                         </div>
                                       </div>
-                                      <span class="big-card__temperature">
-                                        +{citi.main.temp}°
+                                      <span className="big-card__temperature">
+                                        {tempCels(citi.main.temp)}
                                       </span>
                                     </div>
                                   </div>
