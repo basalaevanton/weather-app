@@ -1,17 +1,17 @@
-pet prj weather ver 1.0
-link to app
-https://weather-f76a3.web.app/
+# weather ver 1.0 - https://weather-f76a3.web.app/
 
+### В данном проекте:
 
-  to do:
-1-bug placemarks
+- получяем погоду с openweathermap. 
+- Есть список начальных городов
+- Добавляем новые города через клик по карте или вводим в поле. 
+- Карточки справа показывают больше информации о погоде в городе
 
-2-btn filter
+### В проекте используются следующие технологии:
 
-3-map bunds
-
-
-4-fitches to map
-
-5-click on bigcard => modal with weather to 2-3 days
+- React
+- JavaScript
+- react-beautiful-dnd для перетаскивания карточки с городом
+- Yandex.Maps API для работы с картой 
+- 
 
